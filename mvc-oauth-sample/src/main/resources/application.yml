@@ -13,8 +13,8 @@ spring:
       client:
         registration:
           keycloak:
-            client-id: demo-client
-            client-secret: dgTFHG1e7vd7G4KADWncTVsbWBdKhsHB
+            client-id: demo-mvc-client
+            client-secret: eQldBhLPGIRqpSRh7cUSfNRM7V9LrWqI
             scope:
               - openid
               - profile

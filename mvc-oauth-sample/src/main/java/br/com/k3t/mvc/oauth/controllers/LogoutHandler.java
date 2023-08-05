@@ -1,4 +1,4 @@
-package br.com.k3t.mvc.oauth;
+package br.com.k3t.mvc.oauth.controllers;
 
 import java.io.IOException;
 
