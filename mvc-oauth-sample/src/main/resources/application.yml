@@ -1,0 +1,26 @@
+server:
+  port: 9090
+
+logging:
+  level:
+    root: info
+    #'[org.springframework.web]': ERROR
+    #'[br.com.k3t.mvc.oauth]': TRACE
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: demo-client
+            client-secret: dgTFHG1e7vd7G4KADWncTVsbWBdKhsHB
+            scope:
+              - openid
+              - profile
+              - email
+              - address
+        provider:
+          keycloak:
+            # A barra final é importante!
+            issuer-uri: http://localhost:8080/realms/demo

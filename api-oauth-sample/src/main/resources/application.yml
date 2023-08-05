@@ -1,0 +1,26 @@
+server:
+  port: 3000
+  forward-headers-strategy: framework
+
+logging:
+  level:
+    root: ERROR
+    '[org.springframework.web]': ERROR
+    '[com.auth0.example]': TRACE
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          #issuer-uri: https://{DOMAIN}/                           
+          issuer-uri: https://dev-o5n3jnm13h2df01r.us.auth0.com/ 
+
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true
+    path: /
+    
+  oAuthFlow:
+    authorizationUrl: https://dev-o5n3jnm13h2df01r.us.auth0.com/authorize
+    tokenUrl: https://dev-o5n3jnm13h2df01r.us.auth0.com/oauth/token
