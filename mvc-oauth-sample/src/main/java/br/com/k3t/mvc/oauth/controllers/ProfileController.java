@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +32,7 @@ public class ProfileController {
     ObjectMapper objectMapper;
 
     @GetMapping("/profile")
-    public String profile(Model model, @AuthenticationPrincipal OidcUser oidcUser) {
+    public String profile(Model model, @AuthenticationPrincipal OidcUser oidcUser, OAuth2AuthenticationToken token) {
         model.addAttribute("profile", oidcUser.getClaims());
         model.addAttribute("profileJson", claimsToJson(oidcUser.getClaims()));
         model.addAttribute("authoritiesJson", authoritiesToJson(oidcUser.getAuthorities()));

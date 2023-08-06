@@ -11,14 +11,18 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import br.com.k3t.mvc.oauth.controllers.LogoutHandler;
+import br.com.k3t.mvc.oauth.userservice.CustomOidcUserService;
 
 @Configuration
 @EnableWebSecurity
@@ -41,6 +45,7 @@ public class SecurityConfig {
             )
             .oauth2Login(Customizer.withDefaults())
 //            .oauth2Login(c -> c.)
+            
             .logout(
                 customizer -> customizer.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                         .addLogoutHandler(logoutHandler)
@@ -48,6 +53,11 @@ public class SecurityConfig {
         return http.build();
     }
 
+    @Bean
+    OAuth2UserService<OidcUserRequest, OidcUser> oidcUserService() {
+        return new CustomOidcUserService();
+    }
+    
     @Bean
 	public GrantedAuthoritiesMapper userAuthoritiesMapper() {
 		return (authorities) -> {
