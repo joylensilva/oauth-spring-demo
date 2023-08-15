@@ -1,4 +1,4 @@
-package com.auth0.example;
+package br.com.k3t.api.oauth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

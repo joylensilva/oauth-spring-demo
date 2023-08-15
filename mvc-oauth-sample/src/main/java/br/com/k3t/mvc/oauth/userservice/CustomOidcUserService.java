@@ -76,20 +76,22 @@ public class CustomOidcUserService implements OAuth2UserService<OidcUserRequest,
             accessToken = JWTParser.parse(accessTokenValue);
             @SuppressWarnings("unchecked")
             Map<String, Object> resourceAccessClaim = (Map<String, Object>) accessToken.getJWTClaimsSet().getClaim("resource_access");
-            @SuppressWarnings("unchecked")
-            Map<String, Object> clientRoles = (Map<String, Object>) resourceAccessClaim.get(clientId);
-
-            if (clientRoles != null && !clientRoles.isEmpty()) {
+            if (resourceAccessClaim != null && !resourceAccessClaim.isEmpty()) { 
                 @SuppressWarnings("unchecked")
-                ArrayList<String> roles = (ArrayList<String>) clientRoles.get("roles");
-                
-                if (roles != null && !roles.isEmpty()) {
+                Map<String, Object> clientRoles = (Map<String, Object>) resourceAccessClaim.get(clientId);
+    
+                if (clientRoles != null && !clientRoles.isEmpty()) {
+                    @SuppressWarnings("unchecked")
+                    ArrayList<String> roles = (ArrayList<String>) clientRoles.get("roles");
                     
-                    for(String role : roles) {
-                        authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
+                    if (roles != null && !roles.isEmpty()) {
+                        
+                        for(String role : roles) {
+                            authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
+                        }
+                        
+                        return authorities;
                     }
-                    
-                    return authorities;
                 }
             }
         } catch (ParseException e) {

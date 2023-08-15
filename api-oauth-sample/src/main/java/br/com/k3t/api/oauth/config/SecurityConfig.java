@@ -1,29 +1,32 @@
-package com.auth0.example;
+package br.com.k3t.api.oauth.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
-import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
+@Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-//	public static final String[] SWAGGER_URIS = {
-//			"/", // Raiz redireciona para a doc do swagger.
-//			"/swagger-ui/**",
-//			"/v3/api-docs/**"
-//	};
+	public static final String[] SWAGGER_URIS = {
+			"/", // Raiz redireciona para a doc do swagger.
+			"/swagger-ui/**",
+			"/v3/api-docs/**"
+	};
 	
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-        	.anyRequest()
-        	.permitAll();
+        http.authorizeHttpRequests(c -> c.requestMatchers(SWAGGER_URIS).permitAll()
+                                         .requestMatchers("/api").permitAll()
+                                         .anyRequest().authenticated()
+                                         );
         
-        http.cors().disable(); // Atenção aqui!
+        http.cors(c -> c.disable());
+        
+        http.oauth2ResourceServer(c -> c.jwt(Customizer.withDefaults()));
     	
 //    	http
 //    		.authorizeRequests()

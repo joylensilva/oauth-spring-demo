@@ -1,12 +1,12 @@
 server:
-  port: 3000
+  port: 9091
   forward-headers-strategy: framework
 
 logging:
   level:
     root: ERROR
     '[org.springframework.web]': ERROR
-    '[com.auth0.example]': TRACE
+    '[br.com.k3t.api.oauth]': TRACE
 
 spring:
   security:
@@ -14,7 +14,7 @@ spring:
       resourceserver:
         jwt:
           #issuer-uri: https://{DOMAIN}/                           
-          issuer-uri: https://dev-o5n3jnm13h2df01r.us.auth0.com/ 
+          issuer-uri: http://localhost:8080/realms/demo
 
 springdoc:
   swagger-ui:
@@ -22,5 +22,5 @@ springdoc:
     path: /
     
   oAuthFlow:
-    authorizationUrl: https://dev-o5n3jnm13h2df01r.us.auth0.com/authorize
-    tokenUrl: https://dev-o5n3jnm13h2df01r.us.auth0.com/oauth/token
+    authorizationUrl: http://localhost:8080/realms/demo/protocol/openid-connect/auth
+    tokenUrl: http://localhost:8080/realms/demo/protocol/openid-connect/token

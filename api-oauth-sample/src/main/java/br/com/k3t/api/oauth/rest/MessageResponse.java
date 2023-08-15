@@ -1,4 +1,4 @@
-package com.auth0.example;
+package br.com.k3t.api.oauth.rest;
 
 import java.time.LocalDateTime;
 
