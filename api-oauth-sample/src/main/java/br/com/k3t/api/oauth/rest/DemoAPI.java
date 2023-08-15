@@ -1,10 +1,7 @@
 package br.com.k3t.api.oauth.rest;
 
-import java.security.Principal;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 

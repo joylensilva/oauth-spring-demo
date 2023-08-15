@@ -16,14 +16,15 @@ public class DemoApiImpl implements DemoAPI {
 	}
 
 	@Override
+//	@Secured({"ROLE_Admin"})
 	public ResponseEntity<MessageResponse> sayProtectedHello(@Autowired Authentication auth) {
 	    String username = "Anonymous User";
 	    if (JwtAuthenticationToken.class.isInstance(auth)) {
 	        JwtAuthenticationToken authToken = (JwtAuthenticationToken) auth;
 	        Jwt principal = (Jwt) authToken.getPrincipal();
-	        String preferred_username = principal.getClaimAsString("preferred_username");
-	        if (preferred_username != null) {
-	            username = preferred_username;
+	        String preferredUsername = principal.getClaimAsString("preferred_username");
+	        if (preferredUsername != null) {
+	            username = preferredUsername;
 	        }
 	    }
 	    

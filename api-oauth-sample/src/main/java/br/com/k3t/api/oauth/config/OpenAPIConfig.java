@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.security.OAuthFlow;
 import io.swagger.v3.oas.annotations.security.OAuthFlows;
+import io.swagger.v3.oas.annotations.security.OAuthScope;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 
@@ -36,7 +37,13 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 			@OAuthFlow(
 					authorizationUrl = "${springdoc.oAuthFlow.authorizationUrl}", 
 					tokenUrl = "${springdoc.oAuthFlow.tokenUrl}", 
-					refreshUrl = "${springdoc.oAuthFlow.tokenUrl}"
+					refreshUrl = "${springdoc.oAuthFlow.tokenUrl}",
+					scopes = {@OAuthScope(name = "openid"),
+					          @OAuthScope(name = "profile"),
+					          @OAuthScope(name = "email"),
+					          @OAuthScope(name = "address"),
+					          @OAuthScope(name = "roles")
+					         }
 					)))
 @Configuration
 public class OpenAPIConfig {
